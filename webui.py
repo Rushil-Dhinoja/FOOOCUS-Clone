@@ -128,9 +128,9 @@ with shared.gradio_root:
                                       queue=False, show_progress=False, _js='cancelGenerateForever')
                     skip_button.click(skip_clicked, queue=False, show_progress=False)
             with gr.Row(elem_classes='advanced_check_row'):
-                input_image_checkbox = gr.Checkbox(label='Input Image', value=False, container=False, elem_classes='min_check')
+                input_image_checkbox = gr.Checkbox(label='Input Image', value=True, container=False, elem_classes='min_check')
                 advanced_checkbox = gr.Checkbox(label='Advanced', value=modules.config.default_advanced_checkbox, container=False, elem_classes='min_check')
-            with gr.Row(visible=False) as image_input_panel:
+            with gr.Row(visible=True) as image_input_panel:
                 with gr.Tabs():
                     with gr.TabItem(label='Upscale or Variation') as uov_tab:
                         with gr.Row():
@@ -147,12 +147,12 @@ with shared.gradio_root:
                             ip_weights = []
                             ip_ctrls = []
                             ip_ad_cols = []
-                            for _ in range(4):
+                            for _ in range(1):
                                 with gr.Column():
-                                    ip_image = grh.Image(label='Image', source='upload', type='numpy', show_label=False, height=300)
+                                    ip_image = grh.Image(label='Image', source='upload', type='numpy', show_label=False, height=300, value='https://camila-santoz.s3.ap-south-1.amazonaws.com/newFile_7.png?response-content-disposition=inline&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEBAaCmFwLXNvdXRoLTEiRzBFAiBAU6ed6XCLyU8qYP89jzSZEXBcVJqcl%2FzeFeTPzAW5LAIhAP64IpkFCDPiowusT94qcjobDQkvqVl04usgdAc87lvcKugCCHkQABoMMzQ2MjM5ODA5NjUzIgyNgB1hvxYLPKziuG8qxQK2GosBiw54eHK0K2GgUdgExOddZvS7ZDxtZ0zEZxuOMTwuYOePBky063N6Bkn4%2FW%2Bdd9%2B6QDfHydVcZwVRBMIqQu%2FCM5KSFP0jrX%2BXDXzdhSO7VyEXS%2FrxzTPdlxNalQznCjryEM%2BzqlXAfwlcsEIj%2Fut1TJMiVcpDfTjt96cQToTkfmpgFfpijDlMXTnbXzYy3NsDAzuwUzPIzlctgrgJQGgOEeqETpXQqXZA6EmZ8y5zc%2BIfUfppd6jrXwCwUA0GMW3hu%2BWEBF%2FBnmWnpmpacLbZD%2FlfbPXplR7UV0Qs5Z0tmS%2B1LiyoJBPaaJHQG52uQrfu8cWC7e%2BCkNCObQp5Ytj8GMurQ7x1pI2%2BZMAeKsuFzRCNfmzDcyc%2FdoODeNtuxY%2BO%2FwenJk%2BUUZAxWGRWLik9vZ%2B%2FgK1JXgIjx%2BOUC0VpIoMYMICLvasGOrMCoRIipKn9SfN6CmI39sDjSAlQv6yyjqc89bglNW7%2Fx4bWTLFpGc0pDa%2F%2B4ZvufT0iwQ0%2BRYQ6pSxHVubLwesdGrpPppPfHT0mvma%2BES2xFkjcsLOAn8cORPmtOq3UNlLVbEAaTUR8qSwuKOoFKMDAt%2F6ZogV%2B%2FrmBss24kf1T6mKGi1EDaYseO%2FeYOGT7OO8FWG3eUFVfauQofROkjVthnpO0OBt5dduvkQpTz6G8Pt3EN9ZrrlSwLu%2BQri%2BwLa3uVTntN5MXcL0Hq9UpcUoE4BwZk%2BvKQ%2FLpxAir1EGWA0vo5l44U8Mf4A2hnszpVvr2ovuXlsFIt6fn85h8fsJNC%2B9No99ThZhCd2qW8jbHZfLewbrKreiLWd9BuDyxYqEdwCDt6DveFhW0xwg9kJt2UCZ7zg%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20231205T154652Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAVBHMAHB2TSC5SOFQ%2F20231205%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Signature=c7aa65889aaf02f625a678170fa758dcaa2e003c4256a03be16951e2dd3aefe5')
                                     ip_images.append(ip_image)
                                     ip_ctrls.append(ip_image)
-                                    with gr.Column(visible=False) as ad_col:
+                                    with gr.Column(visible=True) as ad_col:
                                         with gr.Row():
                                             default_end, default_weight = flags.default_parameters[flags.default_ip]
 
@@ -170,7 +170,7 @@ with shared.gradio_root:
 
                                         ip_type.change(lambda x: flags.default_parameters[x], inputs=[ip_type], outputs=[ip_stop, ip_weight], queue=False, show_progress=False)
                                     ip_ad_cols.append(ad_col)
-                        ip_advanced = gr.Checkbox(label='Advanced', value=False, container=False)
+                        ip_advanced = gr.Checkbox(label='Advanced', value=True, container=False)
                         gr.HTML('* \"Image Prompt\" is powered by Fooocus Image Mixture Engine (v1.0.1). <a href="https://github.com/lllyasviel/Fooocus/discussions/557" target="_blank">\U0001F4D4 Document</a>')
 
                         def ip_advance_checked(x):
@@ -201,6 +201,7 @@ with shared.gradio_root:
             ip_advanced.change(lambda: None, queue=False, show_progress=False, _js=down_js)
 
             current_tab = gr.Textbox(value='uov', visible=False)
+           
             uov_tab.select(lambda: 'uov', outputs=current_tab, queue=False, _js=down_js, show_progress=False)
             inpaint_tab.select(lambda: 'inpaint', outputs=current_tab, queue=False, _js=down_js, show_progress=False)
             ip_tab.select(lambda: 'ip', outputs=current_tab, queue=False, _js=down_js, show_progress=False)
