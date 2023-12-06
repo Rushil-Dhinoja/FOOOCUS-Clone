@@ -217,7 +217,11 @@ default_styles = get_config_item_or_set_default(
     default_value=[
         "Fooocus V2",
         "Fooocus Enhance",
-        "Fooocus Sharp"
+        "Fooocus Sharp",
+        "Fooocus Photograph",
+        "Fooocus Cinematic",
+        "SAI Cinematic",
+        "SAI Digital Art"
     ],
     validator=lambda x: isinstance(x, list) and all(y in modules.sdxl_styles.legal_style_names for y in x)
 )
