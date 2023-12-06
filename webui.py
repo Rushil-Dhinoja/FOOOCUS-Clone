@@ -147,7 +147,7 @@ with shared.gradio_root:
                             ip_weights = []
                             ip_ctrls = []
                             ip_ad_cols = []
-                            for _ in range(1):
+                            for _ in range(4):
                                 with gr.Column():
                                     ip_image = grh.Image(label='Image', source='upload', type='numpy', show_label=False, height=300)
                                     ip_images.append(ip_image)
