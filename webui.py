@@ -147,29 +147,57 @@ with shared.gradio_root:
                             ip_weights = []
                             ip_ctrls = []
                             ip_ad_cols = []
-                            for _ in range(4):
-                                with gr.Column():
-                                    ip_image = grh.Image(label='Image', source='upload', type='numpy', show_label=False, height=300)
-                                    ip_images.append(ip_image)
-                                    ip_ctrls.append(ip_image)
-                                    with gr.Column(visible=True) as ad_col:
-                                        with gr.Row():
-                                            default_end, default_weight = flags.default_parameters[flags.default_ip]
+                            for index in range(4):
 
-                                            ip_stop = gr.Slider(label='Stop At', minimum=0.0, maximum=1.0, step=0.001, value=default_end)
-                                            ip_stops.append(ip_stop)
-                                            ip_ctrls.append(ip_stop)
+                                if index == 0:
+                                    with gr.Column():
+                                        ip_image = grh.Image(label='Image', source='upload', type='numpy', show_label=False, height=300, value='https://camila-santoz.s3.ap-south-1.amazonaws.com/newFile_7.png')
+                                        ip_images.append(ip_image)
+                                        ip_ctrls.append(ip_image)
+                                        with gr.Column(visible=True) as ad_col:
+                                            with gr.Row():
+                                                default_end, default_weight = flags.default_parameters[flags.default_ip]
 
-                                            ip_weight = gr.Slider(label='Weight', minimum=0.0, maximum=2.0, step=0.001, value=default_weight)
-                                            ip_weights.append(ip_weight)
-                                            ip_ctrls.append(ip_weight)
+                                                ip_stop = gr.Slider(label='Stop At', minimum=0.0, maximum=1.0, step=0.001, value=default_end)
+                                                ip_stops.append(ip_stop)
+                                                ip_ctrls.append(ip_stop)
 
-                                        ip_type = gr.Radio(label='Type', choices=flags.ip_list, value=flags.default_ip, container=False)
-                                        ip_types.append(ip_type)
-                                        ip_ctrls.append(ip_type)
+                                                ip_weight = gr.Slider(label='Weight', minimum=0.0, maximum=2.0, step=0.001, value=default_weight)
+                                                ip_weights.append(ip_weight)
+                                                ip_ctrls.append(ip_weight)
 
-                                        ip_type.change(lambda x: flags.default_parameters[x], inputs=[ip_type], outputs=[ip_stop, ip_weight], queue=False, show_progress=False)
-                                    ip_ad_cols.append(ad_col)
+                                            ip_type = gr.Radio(label='Type', choices=flags.ip_list, value=flags.default_ip, container=False)
+                                            ip_types.append(ip_type)
+                                            ip_ctrls.append(ip_type)
+
+                                            ip_type.change(lambda x: flags.default_parameters[x], inputs=[ip_type], outputs=[ip_stop, ip_weight], queue=False, show_progress=False)
+                                        ip_ad_cols.append(ad_col)
+                        
+                                else:   
+                                    with gr.Column():
+                                        ip_image = grh.Image(label='Image', source='upload', type='numpy', show_label=False, height=300)
+                                        ip_images.append(ip_image)
+                                        ip_ctrls.append(ip_image)
+                                        with gr.Column(visible=True) as ad_col:
+                                            with gr.Row():
+                                                default_end, default_weight = flags.default_parameters[flags.default_ip]
+
+                                                ip_stop = gr.Slider(label='Stop At', minimum=0.0, maximum=1.0, step=0.001, value=default_end)
+                                                ip_stops.append(ip_stop)
+                                                ip_ctrls.append(ip_stop)
+
+                                                ip_weight = gr.Slider(label='Weight', minimum=0.0, maximum=2.0, step=0.001, value=default_weight)
+                                                ip_weights.append(ip_weight)
+                                                ip_ctrls.append(ip_weight)
+
+                                            ip_type = gr.Radio(label='Type', choices=flags.ip_list, value=flags.default_ip, container=False)
+                                            ip_types.append(ip_type)
+                                            ip_ctrls.append(ip_type)
+
+                                            ip_type.change(lambda x: flags.default_parameters[x], inputs=[ip_type], outputs=[ip_stop, ip_weight], queue=False, show_progress=False)
+                                        ip_ad_cols.append(ad_col)
+                        
+
                         ip_advanced = gr.Checkbox(label='Advanced', value=True, container=False)
                         gr.HTML('* \"Image Prompt\" is powered by Fooocus Image Mixture Engine (v1.0.1). <a href="https://github.com/lllyasviel/Fooocus/discussions/557" target="_blank">\U0001F4D4 Document</a>')
 
